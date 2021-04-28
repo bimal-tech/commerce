@@ -1,0 +1,50 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <br>
+    {% if message %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endif %}
+    <h2> ACTIVE LISTING</h2>
+    {% if empty %}
+        <br>
+       <h3 class=>No Active Listings available</h3>
+    {% else %}
+        <div class="card-columns">
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col col-lg-4 col-sm-6"  >
+                            <div class="card " id="card-base" >
+                    <br>
+                                <a href="{% url 'viewlisting' product.id %}" class="btn btn-warning" style="margin-left: 60%">
+                                    More Details
+                                    <i class="fa fa-arrow-alt-circle-right" ></i>
+                                </a>
+                                <br>
+                                <br>
+                        <div id="card-image" alt="Card title" style="background-image: url({{product.image_link}})" >
+
+                        </div>
+
+                        <div class="card-body" style="height: max-content">
+                            <h4 class="card-title"><strong>{{product.title}}</strong></h4>
+                                        <!-- Subtitle -->
+                                <h6 class="font-weight-bold indigo-text py-2 text-capitalize">{{product.category}}</h6>
+                                <p class="lead">Seller : <strong>{{product.seller}}</strong> <br> </p>
+                                <p class="font-weight-bold">{{product.starting_bid}}$ <br> </p>
+                            <h6>Posted at:
+                                {{product.created_at}}
+                            </h6>
+                        </div>
+
+
+                    </div>
+                        </div>
+                    {% endfor %}
+                </div>
+        </div>
+
+
+    {% endif %}
+
+{% endblock %}

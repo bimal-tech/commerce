@@ -1,0 +1,111 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    {% if message %}
+        <div class="alert alert-{{msg_type}}">{{ message }}</div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col col-lg-6 col-sm-3">
+            {% if added %}
+                <a href="{% url 'addtowatchlist' product.id %}" class="btn btn-danger btn-lg" name="remove">Remove from Watchlist <i class="fa fa-times"></i></a>
+
+            {% else %}
+                <a href="{% url 'addtowatchlist' product.id %}" class="btn btn-success btn-lg" name="addto">Add to Watchlist <i class="fa fa-plus-circle"></i></a>
+
+            {% endif %}
+
+        </div>
+        <div class="col col-lg-6 text-right">
+            {% if user.username == product.seller %}
+             <a href="{% url 'closebid' product.id %}" class="btn btn-danger btn-lg"> Close Bid <i class="fa fa-times-circle"></i></a>
+            {% endif %}
+        </div>
+
+    </div>
+    <br>
+
+    <div class="card" style="padding: 20px;">
+        <br>
+        <h4 class="card-title" style="margin-left: 45%">{{product.title}}</h4>
+        <br>
+        <div id="card-image" alt="Card title" style="background-image: url({{product.image_link}})" >
+
+        </div>
+        <div class="card-body">
+                <p class="lead"> Description : {{product.description}}</p>
+                <h6 class="font-weight-bold py-2 text-capitalize" > <strong>{{product.category}}</strong></h6>
+                <p class="lead">Seller : {{product.seller}} <br> </p>
+                <p class="">{{product.description}} <br> </p>
+            <br>
+                <h3 class="font-weight-bold text-danger">{{product.starting_bid}}$ <br> </h3>
+                <p class="lead" >Created on : {{product.created_at}}</p>
+                <br>
+        </div>
+
+
+        {% if user.username != product.seller %}
+            <p class="lead"> Place your Bid :</p>
+            <form action="{% url 'viewlisting' product.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" type="text" name="newbid" placeholder="Your Bid">
+                </div>
+                <p ><input class="btn btn-primary" type="submit" value="Submit"></p>
+            </form>
+        {% endif %}
+
+    </div>
+    <br>
+    <br>
+    <h2 class="card-title h2 text-center">COMMENTS</h2>
+<br>
+    {% if comments %}
+
+        {% for comment in comments %}
+            <br>
+            <!-- Grid row -->
+            <div class="card text-left">
+                <h5 class="card-header h5">{{comment.user}}</h5>
+                <div class="card-body">
+                    <!-- <h5 class="card-title">Rating :</h5> -->
+                    <p class="lead">{{comment.comment}}</p>
+                    <p class="card-text">{{comment.timestamp}}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <div class="text-center">
+            <!-- Text -->
+            <br> <br>
+            <p class="lead">No Comments Found</p>
+        </div>
+    {% endif %}
+
+    {% if user.username != product.seller %}
+        <br>
+            <div class="card " style="padding: 20px;">
+                <h5 class="card-title h5">ADD COMMENT</h4>
+
+                <form action="{% url 'addcomment' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea class="form-control" name="comment" rows="4" cols="8" style="resize: none" placeholder="Your Comment"></textarea>
+                    </div>
+                    <p align="justify"><input class="btn btn-primary" type="submit" value="Submit"></p>
+                </form>
+            </div>
+
+    {% endif %}
+
+    <br><br>
+
+    {% endblock %}
+
+
+
+
+
+

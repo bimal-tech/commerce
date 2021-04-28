@@ -1,0 +1,57 @@
+body{
+    background: #f0f0f0;
+}
+.card-columns{
+    display: inline !important;
+}
+#card-image{
+    height: 400px !important;
+    width: auto !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+#card-base{
+    background: white;
+    width: -moz-available;
+
+}
+#card-base:hover{
+    box-shadow: 3px 3px 20px grey !important;
+}
+.nav-item{
+    padding-left: 30px;
+
+}
+.dashboard-user,.win-card,.closed-listing-card{
+    box-shadow: 3px 3px 20px grey !important;
+}
+.dashboard-user h3{
+    padding: 20px;
+}
+.win-listing h5{
+    padding: 10px;
+    font-size: 30px;
+}
+#winprice{
+    max-width: fit-content;
+    display: inline-block;
+    background: darkcyan;
+    padding: 15px;
+    color: white;
+    border-radius: 20px;
+    text-shadow: 1px 2px grey;
+    box-shadow: 3px 3px 6px grey;
+}
+.card-columns{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.create-listing{
+    box-shadow: 3px 3px 20px grey !important;
+    padding: 20px;
+}
+.create-listing textarea{
+    resize: none;
+}

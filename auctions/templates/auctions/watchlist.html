@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="card card-cascade" >
+        {% if present %}
+        {% for item in product_list %}
+
+                    <div class="card-body card-body-cascade text-center win-card">
+                        <h4 class="card-title text-center text-capitalize"><strong><a href="{% url 'viewlisting' item.id %}" class="text-dark">{{item.title}}</a></strong></h4>
+                        <br>
+                        <div class="row">
+                            <div class="col col-4" style="margin-top: 15%">
+                                <h4 class="font-weight-normal">Seller :<strong>{{item.seller}}</strong>  <br> </h4>
+                                <br>
+                                <h4 class="font-weight-bold" id="winprice">
+                                    Price : {{item.starting_bid}} $ <br> </h4>
+                                <br><br>
+                                <p class="card-text"> Posted at : <br><strong>{{item.created_at}}</strong></p>
+                            </div>
+
+                            <div class="col col-8">
+                                <div id="card-image" alt="Card title" style="background-image: url({{item.image_link}})" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+            <br>
+
+        {% endfor %}
+        {% else %}
+            <div class="text-center">
+                <!-- Text -->
+                <br> <br>
+                <p class="lead">No Listings Found</p>
+            </div>
+    {% endif %}
+    </div>
+
+
+{% endblock %}

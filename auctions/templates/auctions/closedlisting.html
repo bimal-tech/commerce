@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <br>
+    {% if message %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endif %}
+        <h2 class="card-title h2">CLOSED LISTINGS</h2>
+        <p class="black-text my-4 font-weight-bold">These are the Listings thar are closed by the seller and you can see the winners along with the final bid here.</p>
+            <div class="card closed-listing-card">
+                {% if empty %}
+                    <br>
+                    <h3>No Closed Listings available</h3>
+                {% else %}
+                    {% for product in products %}
+                        <br>
+                        <div class="card-body text-center">
+                            <h4 class="card-title"><strong>{{product.title}}</strong></h4>
+                            {% if product.winner == request.user.username %}
+                                <p class="font-weight-bold">CONGRATULATIONS!!! You Won <br> </p>
+                            {% endif %}
+                             <div class="row">
+                                <div class="col col-4" style="margin-top: 15%">
+                                    <h4 class="font-weight-normal">Seller :<strong>{{product.owner}}</strong>  <br> </h4>
+                                    <h4 class="font-weight-normal">Winner : <strong>{{product.winner}}</strong> <br> </h4>
+                                    <br>
+                                    <h6>Final Bid:</h6>
+                                    <h4 class="font-weight-bold" id="winprice">{{product.winprice}} $ <br> </h4>
+                                    </div>
+                                <div class="col col-8">
+                                    <div id="card-image" alt="Card title" style="background-image: url({{product.image_link}})" >
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+{% endblock %}
